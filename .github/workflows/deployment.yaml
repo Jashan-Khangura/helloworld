@@ -24,8 +24,9 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       - name: Build Image
+        id: build-image
         env:
-          IMAGE_TAG: {{$github.sha}}
+          IMAGE_TAG: ${{github.sha}}
         run: |
           aws ecr-public get-login-password --region ${{secrets.AWS_REGION}} | docker login --username AWS --password-stdin ${{secrets.AWS_REPOSITORY}}
           docker build -t helloworldrepository .
