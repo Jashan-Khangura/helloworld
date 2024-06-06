@@ -32,4 +32,4 @@ jobs:
         run: |
           docker build -t $IMAGE_REPOSITORY .
           docker tag $IMAGE_REPOSITORY:latest ${{secrets.AWS_REPOSITORY}}/$IMAGE_REPOSITORY:$IMAGE_TAG
-          docker push $IMAGE_REPOSITORY:latest ${{secrets.AWS_REPOSITORY}}/$IMAGE_REPOSITORY:$IMAGE_TAG
+          docker push ${{secrets.AWS_REPOSITORY}}/$IMAGE_REPOSITORY:$IMAGE_TAG
