@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+env:
+  IMAGE_REPOSITORY: helloworldrepository
 
 jobs:
   deploy:
@@ -29,6 +31,6 @@ jobs:
           IMAGE_TAG: ${{github.sha}}
         run: |
           aws ecr-public get-login-password --region ${{secrets.AWS_REGION}} | docker login --username AWS --password-stdin ${{secrets.AWS_REPOSITORY}}
-          docker build -t helloworldrepository .
-          docker tag helloworldrepository:latest ${{secrets.AWS_REPOSITORY}}/helloworldrepository:$IMAGE_TAG
-          docker push helloworldrepository:latest ${{secrets.AWS_REPOSITORY}}/helloworldrepository:$IMAGE_TAG
+          docker build -t $IMAGE_REPOSITORY .
+          docker tag $IMAGE_REPOSITORY:latest ${{secrets.AWS_REPOSITORY}}/$IMAGE_REPOSITORY:$IMAGE_TAG
+          docker push $IMAGE_REPOSITORY:latest ${{secrets.AWS_REPOSITORY}}/$IMAGE_REPOSITORY:$IMAGE_TAG
